@@ -23,7 +23,7 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
@@ -163,18 +163,18 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
 " old vim-powerline symbols
-let g:airline_left_sep = '⮀'
-let g:airline_left_alt_sep = '⮁'
-let g:airline_right_sep = '⮂'
-let g:airline_right_alt_sep = '⮃'
-let g:airline_symbols.branch = '⭠'
-let g:airline_symbols.readonly = '⭤'
-let g:airline_symbols.linenr = '⭡'
+" let g:airline_left_sep = '⮀'
+" let g:airline_left_alt_sep = '⮁'
+" let g:airline_right_sep = '⮂'
+" let g:airline_right_alt_sep = '⮃'
+" let g:airline_symbols.branch = '⭠'
+" let g:airline_symbols.readonly = '⭤'
+" let g:airline_symbols.linenr = '⭡'
 
 " Plugin 'vim-airline/vim-airline'
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = '⮀'
-let g:airline#extensions#tabline#left_alt_sep = '⮁'
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
 
 Plugin 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
@@ -240,8 +240,8 @@ let g:go_disable_autoinstall = 0
 set t_Co=256
 let g:solarized_termcolors=256
 set background=dark
-" colorscheme solarized
-colorscheme molokai
+colorscheme solarized
+" colorscheme molokai
 " colorscheme contrastneed
 let g:molokai_original = 1
 let g:rehash256 = 1
