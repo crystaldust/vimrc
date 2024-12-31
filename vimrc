@@ -26,11 +26,6 @@ let g:syntastic_auto_loc_list = 1
 " let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-" let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
-" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-" let g:syntastic_go_checkers = ['govet', 'errcheck']
-" let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': [] }
-" let g:go_list_type = "quickfix"
 
 Plugin 'raimondi/delimitmate'
 let delimitMate_expand_cr = 2
@@ -48,31 +43,6 @@ Bundle 'christoomey/vim-conflicted'
 " set stl+=%{ConflictedVersion()}
 
 Bundle 'bronson/vim-trailing-whitespace'
-
-Plugin 'fatih/vim-go'
-" let g:go_highlight_functions = 1
-" let g:go_highlight_methods = 1
-" let g:go_highlight_fields = 1
-" let g:go_highlight_types = 1
-" let g:go_highlight_operators = 1
-" let g:go_highlight_build_constraints = 1
-" let $GOPATH="/home/lance/go"
-" let $PATH=$GOPATH.$PATH
-" au FileType go nmap <leader>r <Plug>(go-run)
-" au FileType go nmap <leader>b <Plug>(go-build)
-" au FileType go nmap <leader>t <Plug>(go-test)
-" au FileType go nmap <leader>c <Plug>(go-coverage)
-
-" au FileType go nmap <Leader>ds <Plug>(go-def-split)
-" au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-" au FileType go nmap <Leader>dt <Plug>(go-def-tab)
-
-" au FileType go nmap <Leader>gd <Plug>(go-doc)
-" au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-" au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
-" au FileType go nmap <Leader>s <Plug>(go-implements)
-" au FileType go nmap <Leader>i <Plug>(go-info)
-" au FileType go nmap <Leader>e <Plug>(go-rename)
 
 
 " Plugin 'Valloric/YouCompleteMe'
@@ -178,34 +148,6 @@ let g:airline#extensions#tabline#left_alt_sep = ''
 
 Plugin 'majutsushi/tagbar'
 nmap <F8> :TagbarToggle<CR>
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
-
 Plugin 'kien/ctrlp.vim'
 " let g:ctrlp_custom_ignore = '\v[\/]\.(vendor\/)$'
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.idea/*,*/.DS_Store,*/vendor
@@ -234,7 +176,6 @@ filetype plugin indent on    " required
 syntax enable
 filetype plugin on
 set number
-let g:go_disable_autoinstall = 0
 
 
 set t_Co=256
@@ -286,8 +227,6 @@ set showmatch
 set nowrap
 
 
-nmap <buffer> <silent> gr :GoRename<cr>
-nmap <buffer> <silent> gf :GoReferrers<cr>
 
 "nmap <F3>a <ESC><C-w>>
 "nmap <F3>d <ESC><C-w><
@@ -307,13 +246,7 @@ nmap <C-c> <ESC>:res-1<CR>
 
 "第一次执行请执行这两个冒号空间命令，之后删除
 "PluginInstall
-"GoInstallBinaries 
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-
-nmap <F12> :YcmCompleter GoToDefinition<CR>
-nmap <F10> :YcmCompleter GoToDeclaration<CR>
-
-let g:go_fmt_command = "goimports"
 
 set wrap
 set linebreak
