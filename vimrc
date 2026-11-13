@@ -188,10 +188,11 @@ augroup user_nerdtree
   autocmd StdinReadPre * let s:std_in = 1
   autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
   " `vim <dir>`: NERDTree would show the dir as a window tree in the main window,
-  " which opening a file replaces. Use a sidebar tree + empty buffer instead.
+  " which opening a file replaces. Use a sidebar tree + empty buffer instead,
+  " leaving the cursor in the tree (same as plain `vim`).
   autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in')
         \ | execute 'NERDTree' fnameescape(argv()[0]) | wincmd p | enew
-        \ | execute 'cd' fnameescape(argv()[0]) | endif
+        \ | execute 'cd' fnameescape(argv()[0]) | wincmd p | endif
   " Quit when NERDTree is the only window left (Vim 9: :quit not allowed in autocmd).
   autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()
         \ | call feedkeys(":quit\<CR>:\<BS>") | endif
