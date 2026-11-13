@@ -1,0 +1,7 @@
+{
+  "diagnostic.displayByAle": true,
+  "suggest.noselect": true,
+  "go.goplsOptions": {
+    "staticcheck": true
+  }
+}
