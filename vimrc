@@ -15,9 +15,6 @@ let mapleader = "\<Space>"
 let g:completion_engine = empty($VIM_COMPLETION) ? 'coc' : $VIM_COMPLETION
 let s:use_coc = g:completion_engine ==# 'coc'
 
-" Directory of this repo (vimrc is symlinked from here); holds coc-settings.json.
-let s:repo_dir = fnamemodify(resolve(expand('<sfile>:p')), ':h')
-
 " -----------------------------------------------------------------------------
 " vim-plug bootstrap
 " -----------------------------------------------------------------------------
@@ -162,8 +159,15 @@ let g:ale_lint_on_text_changed = 'normal'
 let g:ale_linters = { 'go': ['govet', 'golangci-lint'] }
 let g:airline#extensions#ale#enabled = 1
 
-" Completion engine settings (coc or YCM) live in their own file.
-execute 'source' fnameescape(s:repo_dir . '/completion.vim')
+" Completion engine settings (coc or YCM); setup.sh copies this file into ~/.vim.
+let s:completion_file = s:vim_home . '/completion.vim'
+if filereadable(s:completion_file)
+  execute 'source' fnameescape(s:completion_file)
+else
+  echohl WarningMsg
+  echomsg 'completion.vim not found in ' . s:vim_home . ' — run setup.sh'
+  echohl None
+endif
 
 " NERDCommenter
 let g:NERDSpaceDelims = 1

@@ -8,8 +8,21 @@ Personal Vim 9.x configuration, managed by [vim-plug](https://github.com/junegun
 ./setup.sh
 ```
 
-The script backs up an existing `~/.vimrc`, symlinks this repo's `vimrc`, installs
-vim-plug and runs `:PlugInstall`. Opening Vim without vim-plug present also bootstraps it.
+The script **copies** (not symlinks) the config, so the clone can be thrown away
+afterwards (e.g. `git clone … /tmp/vimrc && /tmp/vimrc/setup.sh`):
+
+| Repo file | Installed to |
+|-----------|--------------|
+| `vimrc` | `~/.vimrc` |
+| `completion.vim` | `~/.vim/completion.vim` |
+| `coc-settings.json` | `~/.vim/coc-settings.json` |
+
+An existing file that differs is backed up as `<file>.bak.<timestamp>`; identical files
+are left alone, so re-running is safe. Then vim-plug is installed and `:PlugInstall` runs.
+Opening Vim without vim-plug present also bootstraps it.
+
+Because these are copies, edit the files in the repo and re-run `setup.sh` (local edits
+to `~/.vimrc` are not tracked).
 
 External tools:
 
@@ -28,7 +41,8 @@ After install, run `:GoUpdateBinaries` once inside Vim.
 
 Default is [coc.nvim](https://github.com/neoclide/coc.nvim) (supports Vim >= 9.0.0438
 as well as Neovim, despite the name). Extensions `coc-go`, `coc-json`, `coc-yaml` and
-`coc-snippets` are installed automatically; settings live in `coc-settings.json`.
+`coc-snippets` are installed automatically; settings live in `coc-settings.json`
+(installed to `~/.vim/coc-settings.json`).
 
 YouCompleteMe + UltiSnips is kept as an alternative:
 

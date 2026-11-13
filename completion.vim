@@ -5,8 +5,7 @@ if g:completion_engine ==# 'coc'
   " ---------------------------------------------------------------------------
   " coc.nvim — works on Vim >= 9.0.0438 and Neovim >= 0.8, needs Node.js
   " ---------------------------------------------------------------------------
-  " coc-settings.json is versioned next to this file.
-  let g:coc_config_home = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+  " coc reads ~/.vim/coc-settings.json (copied there by setup.sh).
   let g:coc_global_extensions = ['coc-go', 'coc-json', 'coc-yaml', 'coc-snippets']
   set shortmess+=c
 

@@ -2,24 +2,34 @@
 # Link this repo's vimrc into place, install vim-plug and all plugins.
 set -euo pipefail
 
+# Files are copied (not symlinked) so the clone can live in /tmp and be deleted.
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+VIM_HOME="${HOME}/.vim"
 VIMRC_TARGET="${HOME}/.vimrc"
-PLUG_FILE="${HOME}/.vim/autoload/plug.vim"
+PLUG_FILE="${VIM_HOME}/autoload/plug.vim"
 PLUG_URL="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+BACKUP_SUFFIX=".bak.$(date +%Y%m%d%H%M%S)"
 
-link_vimrc() {
-  if [[ -L "${VIMRC_TARGET}" && "$(readlink "${VIMRC_TARGET}")" == "${REPO_DIR}/vimrc" ]]; then
-    echo "~/.vimrc already linked"
+# install_file SRC DST — copy SRC to DST, backing up a different existing DST.
+install_file() {
+  local src="$1" dst="$2"
+  if [[ -f "${dst}" && ! -L "${dst}" ]] && cmp -s "${src}" "${dst}"; then
+    echo "${dst} is up to date"
     return
   fi
-  if [[ -e "${VIMRC_TARGET}" || -L "${VIMRC_TARGET}" ]]; then
-    local backup
-    backup="${VIMRC_TARGET}.bak.$(date +%Y%m%d%H%M%S)"
-    mv "${VIMRC_TARGET}" "${backup}"
-    echo "Backed up existing ~/.vimrc to ${backup}"
+  if [[ -e "${dst}" || -L "${dst}" ]]; then
+    mv "${dst}" "${dst}${BACKUP_SUFFIX}"
+    echo "Backed up ${dst} to ${dst}${BACKUP_SUFFIX}"
   fi
-  ln -s "${REPO_DIR}/vimrc" "${VIMRC_TARGET}"
-  echo "Linked ~/.vimrc -> ${REPO_DIR}/vimrc"
+  mkdir -p "$(dirname "${dst}")"
+  cp "${src}" "${dst}"
+  echo "Installed ${dst}"
+}
+
+install_config() {
+  install_file "${REPO_DIR}/vimrc" "${VIMRC_TARGET}"
+  install_file "${REPO_DIR}/completion.vim" "${VIM_HOME}/completion.vim"
+  install_file "${REPO_DIR}/coc-settings.json" "${VIM_HOME}/coc-settings.json"
 }
 
 install_plug() {
@@ -48,7 +58,7 @@ warn_missing() {
 
 main() {
   warn_missing
-  link_vimrc
+  install_config
   install_plug
   vim -es -u "${VIMRC_TARGET}" -i NONE -c 'PlugInstall --sync' -c 'qa' || true
   echo "Done. Open vim and run :PlugStatus to verify."
