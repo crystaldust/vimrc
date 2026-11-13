@@ -55,6 +55,18 @@ Keys are the same in both modes: `<C-n>`/`<C-p>` select, `<Tab>` expands snippet
 `<C-b>`/`<C-z>` jump between placeholders, `<F12>`/`<F10>` go to definition/declaration.
 coc adds `gd` `gy` `gi` `K` `[g` `]g` and `<F6>` (rename).
 
+## File tree (NERDTree)
+
+| Key | Action |
+|-----|--------|
+| `<F2>` | toggle the tree |
+| `<Space>n` | focus the tree (opens it if closed) |
+| `<Space>f` | reveal the current file in the tree |
+| `<C-w>h` / `<C-w>l` | move between tree and editor |
+
+The tree opens automatically when Vim starts without files, and Vim quits when the
+tree is the only window left.
+
 ## Language support (coc.nvim)
 
 coc.nvim is a generic LSP client: any language with a language server works.

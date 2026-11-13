@@ -180,11 +180,16 @@ let g:NERDTrimTrailingWhitespace = 1
 
 " NERDTree
 nnoremap <F2> :NERDTreeToggle<CR>
+nnoremap <Leader>n :NERDTreeFocus<CR>
+nnoremap <Leader>f :NERDTreeFind<CR>
 augroup user_nerdtree
   autocmd!
   " Open NERDTree when vim starts without file arguments.
   autocmd StdinReadPre * let s:std_in = 1
   autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+  " Quit when NERDTree is the only window left (Vim 9: :quit not allowed in autocmd).
+  autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree()
+        \ | call feedkeys(":quit\<CR>:\<BS>") | endif
 augroup END
 
 " Airline
