@@ -64,7 +64,8 @@ coc adds `gd` `gy` `gi` `K` `[g` `]g` and `<F6>` (rename).
 | `<Space>f` | reveal the current file in the tree |
 | `<C-w>h` / `<C-w>l` | move between tree and editor |
 
-The tree opens automatically when Vim starts without files, and Vim quits when the
+The tree opens automatically as a sidebar when Vim starts without files or with a
+directory (`vim .`), stays open when you open files from it, and Vim quits when the
 tree is the only window left.
 
 ## Language support (coc.nvim)
