@@ -41,6 +41,77 @@ Keys are the same in both modes: `<C-n>`/`<C-p>` select, `<Tab>` expands snippet
 `<C-b>`/`<C-z>` jump between placeholders, `<F12>`/`<F10>` go to definition/declaration.
 coc adds `gd` `gy` `gi` `K` `[g` `]g` and `<F6>` (rename).
 
+## Language support (coc.nvim)
+
+coc.nvim is a generic LSP client: any language with a language server works.
+There are two ways to add one.
+
+### Option 1: coc extensions (recommended)
+
+Extensions download and configure the language server for you. Either add them to
+`g:coc_global_extensions` in `completion.vim` (installed automatically on next start,
+and reproducible on a new machine):
+
+```vim
+let g:coc_global_extensions = ['coc-go', 'coc-json', 'coc-yaml', 'coc-snippets',
+      \ 'coc-pyright', 'coc-tsserver', 'coc-clangd']
+```
+
+or install one ad hoc inside Vim with `:CocInstall coc-pyright`.
+
+| Language | Extension | Extra requirement | Status (2026-11) |
+|----------|-----------|-------------------|------------------|
+| Go | `coc-go` *(enabled)* | `go` | active |
+| JSON | `coc-json` *(enabled)* | — | active |
+| YAML | `coc-yaml` *(enabled)* | — | active |
+| Snippets | `coc-snippets` *(enabled)* | — | active |
+| TypeScript / JavaScript | `coc-tsserver` | — (bundles tsserver) | active |
+| ESLint / Prettier | `coc-eslint`, `coc-prettier` | project-local `eslint` / `prettier` | active |
+| Python | `coc-pyright` | `python3` | active |
+| Rust | `coc-rust-analyzer` | `rustup` (downloads rust-analyzer on first use) | active |
+| C / C++ | `coc-clangd` | `clangd` (Xcode CLT or `brew install llvm`) | active |
+| Java | `coc-java` | JDK 21+ | active |
+| HTML / CSS | `coc-html`, `coc-css` | — | active |
+| Ansible | `coc-ansible` | `ansible`, optionally `ansible-lint` | active |
+| Shell | `coc-sh` | — (`shellcheck` recommended) | low activity |
+| Lua, VimL, Dockerfile | `coc-lua`, `coc-vimlsp`, `coc-docker` | — | unmaintained since 2023; prefer option 2 |
+
+### Option 2: configure a language server directly
+
+For languages without a maintained extension, point coc at a server you installed
+yourself, in `coc-settings.json`:
+
+```json
+"languageserver": {
+  "lua": {
+    "command": "lua-language-server",
+    "filetypes": ["lua"],
+    "rootPatterns": [".luarc.json", ".git/"]
+  },
+  "dockerfile": {
+    "command": "docker-langserver",
+    "args": ["--stdio"],
+    "filetypes": ["dockerfile"]
+  }
+}
+```
+
+Install the servers first, e.g. `brew install lua-language-server` and
+`npm install -g dockerfile-language-server-nodejs`. The coc wiki page
+[Language servers](https://github.com/neoclide/coc.nvim/wiki/Language-servers) has
+ready-made snippets for many more languages (Haskell, Zig, Kotlin, Terraform, …).
+
+### Managing extensions
+
+| Command | Purpose |
+|---------|---------|
+| `:CocList extensions` | list installed extensions (toggle / uninstall from the list) |
+| `:CocUpdate` | update all extensions |
+| `:CocUninstall coc-xxx` | remove an extension (also drop it from `g:coc_global_extensions`) |
+| `:CocInfo` | versions and server logs, useful for troubleshooting |
+| `:CocConfig` | open `coc-settings.json` |
+| `:CocCommand workspace.showOutput` | show a language server's output |
+
 ## Daily use
 
 | Command | Purpose |
